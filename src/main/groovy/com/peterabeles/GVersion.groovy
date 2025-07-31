@@ -296,7 +296,7 @@ class GVersion implements Plugin<Project> {
                             writer << '@Generated(\"com.peterabeles.GVersion\")\n'
                         }
                         writer << "public final class $extension.className implements Logged {\n"
-                        if (exception.mavenInfo) {
+                        if (extension.mavenInfo) {
                             writer << "${indent}@Log public static final String MAVEN_GROUP = \"$project.group\";\n"
                             writer << "${indent}@Log public static final String MAVEN_NAME = \"$project.name\";\n"
                         }
