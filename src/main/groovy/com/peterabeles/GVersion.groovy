@@ -242,6 +242,8 @@ class GVersion implements Plugin<Project> {
                 def git_revision = executeGetOutput('git rev-list --no-show-signature --count HEAD', '-1')
                 def git_sha = executeGetOutput('git rev-parse HEAD', 'UNKNOWN')
                 def git_branch = executeGetOutput('git rev-parse --abbrev-ref HEAD', 'UNKNOWN')
+                def git_last_commit_author = executeGetOutput('git log -1 --pretty=format:%an', 'UNKNOWN')
+                def build_user = System.getProperty('user.name', 'UNKNOWN')
                 def git_date
                 def date_format
 
