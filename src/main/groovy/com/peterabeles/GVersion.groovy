@@ -285,11 +285,11 @@ class GVersion implements Plugin<Project> {
                         if (extension.classPackage.size() > 0) {
                             writer << "package $extension.classPackage;\n\n"
                         }
+                        writer << 'import monologue.Logged;\n\n'
+                        writer << 'import monologue.Annotations.*;\n\n'
 
                         if (extension.annotate) {
                             writer << 'import javax.annotation.Generated;\n\n'
-                            writer << 'import monologue.Logged;\n\n'
-                            writer << 'import monologue.Annotations.*;\n\n'
                         }
                         writer << '/**\n'
                         writer << ' * Automatically generated file containing build version information.\n'
