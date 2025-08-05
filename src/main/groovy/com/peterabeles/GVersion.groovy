@@ -243,7 +243,7 @@ class GVersion implements Plugin<Project> {
                 def git_sha = executeGetOutput('git rev-parse HEAD', 'UNKNOWN')
                 def git_branch = executeGetOutput('git rev-parse --abbrev-ref HEAD', 'UNKNOWN')
                 def git_last_commit_author = executeGetOutput('git log -1 --pretty=format:%an', 'UNKNOWN')
-                def build_user = System.getProperty('user.name', 'UNKNOWN')
+                def build_user = executeGetOutput('git config user.name', 'UNKNOWN')
                 def git_date
                 def date_format
 
@@ -285,7 +285,7 @@ class GVersion implements Plugin<Project> {
                         if (extension.classPackage.size() > 0) {
                             writer << "package $extension.classPackage;\n\n"
                         }
-                        writer << 'import monologue.Logged;\n\n'
+                        writer << 'import monologue.Logged;\n'
                         writer << 'import monologue.Annotations.*;\n\n'
 
                         if (extension.annotate) {
@@ -308,7 +308,6 @@ class GVersion implements Plugin<Project> {
                         writer << "${indent}@Log public static final String LAST_COMMIT_AUTHOR = \"$git_last_commit_author\";\n"
                         writer << "${indent}@Log public static final String BUILD_USER = \"$build_user\";\n"
                         writer << "${indent}@Log public static final String BUILD_DATE = \"$date_string\";\n"
-                        writer << "${indent}@Log public static final long BUILD_UNIX_TIME = " + unix_time + 'L;\n'
                         writer << "${indent}@Log public static final boolean HAS_UNCOMMITTED_CHANGES = " + (dirty_value > 0 ? 'true' : 'false') + ';\n'
                         writer << '\n'
                         writer << "${indent}private $extension.className(){}\n" // hide implicit public constructor
